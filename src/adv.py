@@ -1,6 +1,21 @@
 from room import Room
+from player import Player
+# Declare all the 
 
-# Declare all the rooms
+# def displayIntro():
+#     print("You awaken to find yourself at a crossroads.")
+#     print("You can't remember how you got there")
+#     print("You can go North, South, East, or West.")
+
+
+# def choosePath():
+#     path = ""
+#     while path != "N" and path != "S" and path != "E" and path != "W":
+#         input("Which path do you choose? (input N , S , E, or W): ").upper()
+#         return path
+
+# displayIntro()
+# choosePath()
 
 room = {
     'outside':  Room("Outside Cave Entrance",
@@ -38,12 +53,57 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-
+player = Player(room['outside'])
+curRoom = player.room
 # Write a loop that:
 #
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
+print(player.room) 
+
+path = input("Where will you go? (Choose N , S , E, W) or q to quit: ").upper()
+
+player.curRoom = player.room
+
+def outsidePath(path,func1):
+    while path != "Q":
+        if path == "N":
+            player = Player(room['foyer'])
+            print(player.room)
+            func1(path)
+            break
+        elif path == "S" or "E" or "W":
+            print("You can not go that way . . .")
+            path = input("Where will you go? (Choose N , S , E, W): ").upper()
+        else:
+            print("Please enter a valid direction!")
+
+def foyerPath(func1):
+    path = input("Where will you go? (Choose N , S , E, W) or q to quit: ").upper()
+    while path != "Q":
+        if path == "S":
+            player = Player(room['outside'])
+            print(player.room)
+            func1(path)
+            break
+        elif path == "N":
+            player = Player(room['overlook'])
+            print(player.room)
+            break
+        elif path == "E":
+            player = Player(room['narrow'])
+            print(player.room)
+            break
+        elif path == "W":
+            print("You can not go that way . . .")
+            path = input("Where will you go? (Choose N , S , E, W): ").upper()        
+        else:
+            print("Please enter a valid direction!")
+outsidePath(path, foyerPath)
+foyerPath(outsidePath)
+
+
 #
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
