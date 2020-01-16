@@ -2,20 +2,16 @@ from room import Room
 from player import Player
 # Declare all the 
 
-# def displayIntro():
-#     print("You awaken to find yourself at a crossroads.")
-#     print("You can't remember how you got there")
-#     print("You can go North, South, East, or West.")
+def displayIntro():
+    print("")
+    print("You awaken to find yourself at a crossroads.")
+    print("")
+    print("You can't remember how you got there")
+    print("You can go North, South, East, or West.")
+    print("")
 
 
-# def choosePath():
-#     path = ""
-#     while path != "N" and path != "S" and path != "E" and path != "W":
-#         input("Which path do you choose? (input N , S , E, or W): ").upper()
-#         return path
-
-# displayIntro()
-# choosePath()
+displayIntro()
 
 room = {
     'outside':  Room("Outside Cave Entrance",
@@ -60,51 +56,36 @@ curRoom = player.room
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
-print(player.room) 
 
-path = input("Where will you go? (Choose N , S , E, W) or q to quit: ").upper()
+# print(player.room) 
 
-player.curRoom = player.room
+# path = input("Where will you go? (Choose N , S , E, W) or q to quit: ").upper()
 
-def outsidePath(path,func1):
-    while path != "Q":
-        if path == "N":
-            player = Player(room['foyer'])
-            print(player.room)
-            func1(path)
-            break
-        elif path == "S" or "E" or "W":
-            print("You can not go that way . . .")
-            path = input("Where will you go? (Choose N , S , E, W): ").upper()
+# player.curRoom = player.room
+
+game_status = True
+
+while game_status:
+    path = input('\nWhere do you want to go? (Input n, s, e, or w) or q to quit: \n')
+
+    if path == 'q':
+        print('See you next time!\n')
+        game_status = False
+
+    if path == 'n' or path == 'e' or path == 's' or path == 'w':
+        attrib = f'{path}_to'
+
+        if player.room.__dict__[attrib] == None:
+                print('\nYou can not go that way! Please choose another direction.\n')
+
         else:
-            print("Please enter a valid direction!")
-
-def foyerPath(func1):
-    path = input("Where will you go? (Choose N , S , E, W) or q to quit: ").upper()
-    while path != "Q":
-        if path == "S":
-            player = Player(room['outside'])
+            player.room = player.room.__dict__[attrib]
             print(player.room)
-            func1(path)
-            break
-        elif path == "N":
-            player = Player(room['overlook'])
-            print(player.room)
-            break
-        elif path == "E":
-            player = Player(room['narrow'])
-            print(player.room)
-            break
-        elif path == "W":
-            print("You can not go that way . . .")
-            path = input("Where will you go? (Choose N , S , E, W): ").upper()        
-        else:
-            print("Please enter a valid direction!")
-outsidePath(path, foyerPath)
-foyerPath(outsidePath)
 
 
-#
+
+
+
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
