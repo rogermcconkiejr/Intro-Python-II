@@ -1,6 +1,7 @@
 from room import Room
 from player import Player
 # Declare all the 
+print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
 
 def displayIntro():
     print("")
@@ -15,21 +16,21 @@ displayIntro()
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons",["rocks"]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""",["dusty-knife", "sword"]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""",["rocks","bird-eggs","hatchet"]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""",["dirt"]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""",["treasure","gold","rubies"]),
 }
 
 
@@ -50,6 +51,7 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 player = Player(room['outside'])
+
 curRoom = player.room
 # Write a loop that:
 #
@@ -61,7 +63,15 @@ curRoom = player.room
 
 # path = input("Where will you go? (Choose N , S , E, W) or q to quit: ").upper()
 
-# player.curRoom = player.room
+# player.curRoom = player.
+print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+print(player.room)
+availableItems = player.room.items
+print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+player.getItems(availableItems)
+print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+print(f"Here's what you got:{player.plItems}")
+player.dropItems()
 
 game_status = True
 
@@ -79,8 +89,16 @@ while game_status:
                 print('\nYou can not go that way! Please choose another direction.\n')
 
         else:
+            print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
             player.room = player.room.__dict__[attrib]
+            availableItems = player.room.items
             print(player.room)
+            print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+            player.getItems(availableItems)
+            print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+            print(f"Here's what you got: {player.plItems}")
+            player.dropItems()
+            
 
 
 

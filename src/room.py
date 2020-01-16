@@ -2,16 +2,17 @@
 # description attributes.
 
 class Room:
-    def __init__(self, room_name, description):
+    def __init__(self, room_name, description, items):
         self.room_name = room_name
         self.description = description
+        self.items = items
         self.n_to = None
         self.s_to = None
         self.e_to = None
         self.w_to = None
 
     def __repr__(self):
-        return f"You are in the {self.room_name}, {self.description}"
+        return f"You are in the {self.room_name}, {self.description} \n \n items available: {self.items}"
 
 
 
